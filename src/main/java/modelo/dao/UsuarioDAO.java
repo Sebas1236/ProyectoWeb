@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.dto.UsuarioDTO;
 
 public class UsuarioDAO {
@@ -18,6 +16,7 @@ public class UsuarioDAO {
     private static final String SQL_DELETE = "delete from Usuario where idUsu = ?";
     private static final String SQL_READ = "select * from Usuario where idUsu = ?";
     private static final String SQL_READ_ALL = "select * from Usuario";
+    private static final String SQL_LOGIN = "select * from Usuario where nombreUsu = ? and passwordUsu = ?";
     private Connection conexion;
 
     public void create(UsuarioDTO dto) throws SQLException, ClassNotFoundException {
@@ -99,6 +98,27 @@ public class UsuarioDAO {
                 Conexion.close(conexion);
                 Conexion.close(rs);
         }
+    }
+    
+    public Boolean login(UsuarioDTO dto) throws SQLException, ClassNotFoundException
+    {
+        conexion = Conexion.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try
+        {
+            ps = conexion.prepareStatement(SQL_LOGIN);
+            ps.setString(1, dto.getEntidad().getNombreUsu());
+            ps.setString(2, dto.getEntidad().getPasswordUsu());
+            rs = ps.executeQuery();
+            return rs.next();
+        }finally
+        {
+                Conexion.close(ps);
+                Conexion.close(conexion);
+                Conexion.close(rs);
+        }
+                
     }
 
     private List obtenerResultados(ResultSet rs) throws SQLException {
