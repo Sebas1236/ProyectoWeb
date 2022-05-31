@@ -55,11 +55,10 @@ public class EliminarUsuario extends HttpServlet {
                 dto = dao.read(dto);
                 //out.println(dto.toString());
                 dao.delete(dto);
-                out.println("Eliminado!");
-                out.println("<a href='ListaDeUsuarios'>Lista de Usuarios</a>");
+                response.sendRedirect("ListaDeUsuarios");
             }catch(SQLException ex)
             {
-                Logger.getLogger(ListaDeEstados.class.getName()).log(Level.SEVERE,null,ex);
+                Logger.getLogger(ListaDeUsuarios.class.getName()).log(Level.SEVERE,null,ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }

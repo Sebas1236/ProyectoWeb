@@ -49,6 +49,7 @@ public class ActualizarUsuario extends HttpServlet {
             UsuarioDTO dto = new UsuarioDTO();
             dto.getEntidad().setIdUsu(Integer.parseInt(request.getParameter("id")));
             dto.getEntidad().setNombreUsu(request.getParameter("nombreUsuario"));
+            dto.getEntidad().setCorreoUsu(request.getParameter("correoUsuario"));
             try{
                 dao.read(dto);
                 /*
@@ -63,6 +64,8 @@ public class ActualizarUsuario extends HttpServlet {
                 //out.println("<label >"+dto.getEntidad().getIdEstado()+"</label><br/>");
                 out.println("<label for='txtNombre'>Nombre usuario</label><br/>");
                 out.println("<input type='text' id='txtNombre' name='txtNombre' value='"+dto.getEntidad().getNombreUsu()+"'/><br/>");
+                out.println("<label for='correoUsu'>Correo usuario</label><br/>");
+                out.println("<input type='text' id='correoUsu' name='correoUsu' value='"+dto.getEntidad().getCorreoUsu()+"'/><br/>");
                 out.println("<br>");
                 out.println("<button type = 'submit' name='btnActualizar'> Actualizar</button>");
                 out.println("</form>");

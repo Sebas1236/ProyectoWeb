@@ -7,11 +7,16 @@ package controlador.Empresa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.dao.EmpresaDAO;
+import modelo.dto.EmpresaDTO;
 
 /**
  *
@@ -40,7 +45,28 @@ public class ActualizarEmpresa extends HttpServlet {
             out.println("<title>Servlet ActualizarEmpresa</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ActualizarEmpresa at " + request.getContextPath() + "</h1>");
+            EmpresaDAO dao = new EmpresaDAO();
+            EmpresaDTO dto = new EmpresaDTO();
+            dto.getEntidad().setIdEmpresa(Integer.parseInt(request.getParameter("id")));
+            dto.getEntidad().setNombreEmp(request.getParameter("nombreUsuario"));
+            try{
+                dao.read(dto);
+                out.println("<form name='datos' method='post' action='AlmacenarActualizacionEmpresa'>");
+                out.println("<label for=''>Clave empresa</label><br/>");
+                System.out.println("Valor: "+dto.getEntidad().getIdEmpresa());
+                out.println("<input type='text' id='idUsuario' name='idUsuario' value='"+dto.getEntidad().getIdEmpresa()+"' readonly/><br/>");
+                out.println("<label for='txtNombre'>Nombre empresa</label><br/>");
+                out.println("<input type='text' id='txtNombre' name='txtNombre' value='"+dto.getEntidad().getNombreEmp()+"'/><br/>");
+                out.println("<br>");
+                out.println("<button type = 'submit' name='btnActualizar'> Actualizar</button>");
+                out.println("</form>");
+             }catch(SQLException ex)
+            {
+                Logger.getLogger(ListaDeEmpresas.class.getName()).log(Level.SEVERE,null,ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ActualizarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //out.println("<h1>Servlet ActualizarUsuario at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -5,13 +5,20 @@
  */
 package controlador.Empresa;
 
+import controlador.ListaDeEstados;
+import controlador.Usuario.EliminarUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.dao.EmpresaDAO;
+import modelo.dto.EmpresaDTO;
 
 /**
  *
@@ -37,10 +44,25 @@ public class EliminarEmpresa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EliminarEmpresa</title>");            
+        
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EliminarEmpresa at " + request.getContextPath() + "</h1>");
+            EmpresaDTO dto = new EmpresaDTO();
+            EmpresaDAO dao = new EmpresaDAO();
+            int id = Integer.parseInt(request.getParameter("id"));
+            dto.getEntidad().setIdEmpresa(id);
+            try{
+                dto = dao.read(dto);
+                //out.println(dto.toString());
+                dao.delete(dto);
+                out.println("Eliminado!");
+                out.println("<a href='ListaDeUsuarios'>Lista de Usuarios</a>");
+            }catch(SQLException ex)
+            {
+                Logger.getLogger(ListaDeEmpresas.class.getName()).log(Level.SEVERE,null,ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(EliminarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            }
             out.println("</body>");
             out.println("</html>");
         }

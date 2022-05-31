@@ -53,6 +53,7 @@ public class MostrarUsuario extends HttpServlet {
                 out.println("<b>Los datos del Usuario son </b><br/>");
                 out.println("<i>Clave : "+dto.getEntidad().getIdUsu()+"</i><br/>");
                 out.println("<i>Nombre : "+dto.getEntidad().getNombreUsu()+"</i><br/>");
+                out.println("<i>Correo : "+dto.getEntidad().getCorreoUsu()+"</i><br/>");
                 out.println("<a href='ListaDeUsuarios'>Lista de Usuarios</a>");
                 out.println("");
             } catch (SQLException ex) {

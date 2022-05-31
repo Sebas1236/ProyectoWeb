@@ -26,6 +26,7 @@ public class IniciarSesion extends HttpServlet {
         UsuarioDTO dto = new UsuarioDTO();
         dto.getEntidad().setNombreUsu(request.getParameter("txtUsuario"));
         dto.getEntidad().setPasswordUsu(request.getParameter("txtPassword"));
+        dto.getEntidad().setCorreoUsu(request.getParameter("correoUsu"));
         UsuarioDAO dao = new UsuarioDAO();
         ResultSet rs = null;
         try {

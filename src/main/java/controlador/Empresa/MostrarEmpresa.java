@@ -7,11 +7,16 @@ package controlador.Empresa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.dao.EmpresaDAO;
+import modelo.dto.EmpresaDTO;
 
 /**
  *
@@ -40,7 +45,20 @@ public class MostrarEmpresa extends HttpServlet {
             out.println("<title>Servlet MostrarEmpresa</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MostrarEmpresa at " + request.getContextPath() + "</h1>");
+            EmpresaDAO dao = new EmpresaDAO();
+            EmpresaDTO dto = new EmpresaDTO();
+            dto.getEntidad().setIdEmpresa(Integer.parseInt(request.getParameter("idUsuario")));
+            try {
+                dao.read(dto);
+                out.println("<b>Los datos del Usuario son </b><br/>");
+                out.println("<i>Clave : "+dto.getEntidad().getIdEmpresa()+"</i><br/>");
+                out.println("<i>Nombre : "+dto.getEntidad().getNombreEmp()+"</i><br/>");
+                out.println("<a href='ListaDeUsuarios'>Lista de Usuarios</a>");
+                out.println("");
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(MostrarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             out.println("</body>");
             out.println("</html>");
         }

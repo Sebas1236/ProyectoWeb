@@ -54,6 +54,7 @@ public class ListaDeUsuarios extends HttpServlet {
             out.println("<tr>");
             out.println("<th>Clave Usuario</th>");
             out.println("<th>Nombre Usuario</th>");
+            out.println("<th>Correo Usuario</th>");
             out.println("<th>Eliminar</th>");
             out.println("<th>Actualizar</th>");
             out.println("</tr>");
@@ -66,6 +67,7 @@ public class ListaDeUsuarios extends HttpServlet {
                 {
                     
                     UsuarioDTO dto = (UsuarioDTO)lista.get(i);
+                    System.out.println(dto.getEntidad().getCorreoUsu());
                     out.println("<form method='POST'>");
                     out.println("<tbody>");
                     out.println("<tr>");
@@ -75,7 +77,8 @@ public class ListaDeUsuarios extends HttpServlet {
                     //out.println("<td>"+dto.getEntidad().getIdEstado()+"</td>");
                     //out.println("<td>"+dto.getEntidad().getNombreUsu()+"</td>");
                     out.println("<td><input style='border:0' type='text' id='idUsuario' name='id' value='"+dto.getEntidad().getIdUsu()+"' readonly/></td>");
-                    out.println("<td><input style='border:0' type='text' id='idUsuario' name='nombreUsuario' value='"+dto.getEntidad().getNombreUsu()+"' readonly/></td>");
+                    out.println("<td><input style='border:0' type='text' id='nombreUsuario' name='nombreUsuario' value='"+dto.getEntidad().getNombreUsu()+"' readonly/></td>");
+                    out.println("<td><input style='border:0' type='text' id='correoUsuario' name='correoUsuario' value='"+dto.getEntidad().getCorreoUsu()+"' readonly/></td>");
                     out.println("<td>"
                             + "<button type='submit' formaction='EliminarUsuario' class='btn btn-link btn-rounded btn-sm fw-bold' data-mdb-ripple-color='dark'>"
                             + "Eliminar</button></td>");

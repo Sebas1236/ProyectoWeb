@@ -11,12 +11,12 @@ import modelo.dto.UsuarioDTO;
 
 public class UsuarioDAO {
         
-    private static final String SQL_INSERT = "insert into Usuario(nombreUsu, passwordUsu) values (?, ?)";
-    private static final String SQL_UPDATE = "update Usuario set nombreUsu = ? where idUsu = ?";
+    private static final String SQL_INSERT = "insert into Usuario(nombreUsu, passwordUsu, correoUsu) values (?, ?, ?)";
+    private static final String SQL_UPDATE = "update Usuario set nombreUsu = ?, correoUsu = ? where idUsu = ?";
     private static final String SQL_DELETE = "delete from Usuario where idUsu = ?";
     private static final String SQL_READ = "select * from Usuario where idUsu = ?";
     private static final String SQL_READ_ALL = "select * from Usuario";
-    private static final String SQL_LOGIN = "select * from Usuario where nombreUsu = ? and passwordUsu = ?";
+    private static final String SQL_LOGIN = "select * from Usuario where (nombreUsu = ? or correoUsu = ?) and passwordUsu = ?";
     private Connection conexion;
 
     public void create(UsuarioDTO dto) throws SQLException, ClassNotFoundException {
@@ -26,6 +26,7 @@ public class UsuarioDAO {
             ps = conexion.prepareStatement(SQL_INSERT);
             ps.setString(1, dto.getEntidad().getNombreUsu());
             ps.setString(2, dto.getEntidad().getPasswordUsu());
+            ps.setString(3, dto.getEntidad().getCorreoUsu());
             ps.executeUpdate();
         } finally {
                 Conexion.close(ps);
@@ -39,7 +40,8 @@ public class UsuarioDAO {
         try {
             ps = conexion.prepareStatement(SQL_UPDATE);
             ps.setString(1, dto.getEntidad().getNombreUsu());
-            ps.setInt(2, dto.getEntidad().getIdUsu());
+            ps.setString(2, dto.getEntidad().getCorreoUsu());
+            ps.setInt(3, dto.getEntidad().getIdUsu());
             ps.executeUpdate();
         } finally {
                 Conexion.close(ps);
@@ -109,7 +111,8 @@ public class UsuarioDAO {
         {
             ps = conexion.prepareStatement(SQL_LOGIN);
             ps.setString(1, dto.getEntidad().getNombreUsu());
-            ps.setString(2, dto.getEntidad().getPasswordUsu());
+            ps.setString(2, dto.getEntidad().getCorreoUsu());
+            ps.setString(3, dto.getEntidad().getPasswordUsu());
             rs = ps.executeQuery();
             return rs.next();
         }finally
@@ -127,6 +130,8 @@ public class UsuarioDAO {
             UsuarioDTO dto = new UsuarioDTO();
             dto.getEntidad().setIdUsu(rs.getInt("idUsu"));
             dto.getEntidad().setNombreUsu(rs.getString("nombreUsu"));
+            dto.getEntidad().setCorreoUsu(rs.getString("correoUsu"));
+            //System.out.println("Correo: " + rs.getString("correoUsu"));
             resultado.add(dto);
         }
         return resultado;

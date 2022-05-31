@@ -45,8 +45,10 @@ public class RegistrarUsuario extends HttpServlet {
             UsuarioDTO dto = new UsuarioDTO();
             dto.getEntidad().setNombreUsu(request.getParameter("txtNombreUsuario"));
             dto.getEntidad().setPasswordUsu(request.getParameter("txtPasswordUsuario"));
+            dto.getEntidad().setCorreoUsu(request.getParameter("correoUsu"));
             System.out.println(request.getParameter("txtNombreUsuario"));
             System.out.println(request.getParameter("txtPasswordUsuario"));
+            System.out.println(request.getParameter("correoUsu"));
             //Inserta el usuario
             UsuarioDAO dao = new UsuarioDAO();
                 try {

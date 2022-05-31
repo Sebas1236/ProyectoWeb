@@ -51,8 +51,10 @@ public class AlmacenarActualizacionUsuario extends HttpServlet {
             UsuarioDTO dto = new UsuarioDTO();
             dto.getEntidad().setNombreUsu(request.getParameter("txtNombre"));
             dto.getEntidad().setIdUsu(Integer.parseInt(request.getParameter("idUsuario")));
+            dto.getEntidad().setCorreoUsu(request.getParameter("correoUsu"));
             System.out.println("Nombre usuario aau"+request.getParameter("txtNombre"));
             System.out.println("Id: "+request.getParameter("idUsuario"));
+            System.out.println("Correo: " + request.getParameter("correoUsu"));
             try{      
                 dao.update(dto);      
                 System.out.println("Usuario actualizado!");
