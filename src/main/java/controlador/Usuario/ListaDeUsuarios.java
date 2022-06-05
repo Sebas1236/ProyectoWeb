@@ -59,7 +59,8 @@ public class ListaDeUsuarios extends HttpServlet {
             out.println("<th>Actualizar</th>");
             out.println("</tr>");
             out.println("</thead>");
-
+            if((request.getSession(false).getAttribute("Admin")== null) )
+                response.sendRedirect("home.html");
             UsuarioDAO dao = new UsuarioDAO();
             try{
                 List lista = dao.readAll();

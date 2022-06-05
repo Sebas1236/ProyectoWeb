@@ -3,27 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador;
+package controlador.Login;
 
-import modelo.dao.EstadoDAO;
-import modelo.dto.EstadoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Sebastián
  */
-@WebServlet(name = "Eliminar", urlPatterns = {"/Eliminar"})
-public class EliminarEstado extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,24 +39,10 @@ public class EliminarEstado extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Eliminar</title>");            
+            out.println("<title>Servlet LogoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            EstadoDTO dto = new EstadoDTO();
-            EstadoDAO dao = new EstadoDAO();
-            int id = Integer.parseInt(request.getParameter("id"));
-            dto.getEntidad().setIdEstado(id);
-            try{
-                dto = dao.read(dto);
-                //out.println(dto.toString());
-                dao.delete(dto);
-                out.println("Eliminado!");
-            }catch(SQLException ex)
-            {
-                Logger.getLogger(ListaDeEstados.class.getName()).log(Level.SEVERE,null,ex);
-            }
-            
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,10 +58,20 @@ public class EliminarEstado extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+ protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+ {
+  HttpSession session = request.getSession(false); //Fetch session object
+
+  if(session!=null) //If session is not null
+  {
+   session.invalidate(); //removes all session attributes bound to the session
+   request.setAttribute("errMessage", "Has cerrado sesión satisfactoriamente");
+   RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Login.jsp");
+   requestDispatcher.forward(request, response);
+   System.out.println("Logged out");
+  }
+ }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.

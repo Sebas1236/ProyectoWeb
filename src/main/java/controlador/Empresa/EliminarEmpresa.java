@@ -5,8 +5,6 @@
  */
 package controlador.Empresa;
 
-import controlador.ListaDeEstados;
-import controlador.Usuario.EliminarUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
