@@ -7,7 +7,15 @@ public class Usuario {
     private String nombreUsu;
     private String passwordUsu;
     private String correoUsu;
-
+    private String role;
+    public Usuario(){}
+    public Usuario(int idUsu, String nombreUsu, String correoUsu, String role)
+    {
+        this.idUsu = idUsu;
+        this.nombreUsu = nombreUsu;
+        this.correoUsu = correoUsu;
+        this.role = role;
+    }
     public String getCorreoUsu() {
         return correoUsu;
     }
@@ -39,6 +47,14 @@ public class Usuario {
 
     public void setPasswordUsu(String passwordUsu) {
         this.passwordUsu = passwordUsu;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
     
 }

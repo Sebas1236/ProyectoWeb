@@ -14,7 +14,9 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 <center><h2>Bienvenido, Administrador!</h2></center>
 
 Welcome <%=request.getAttribute("userName") %>
-
+<a href="ServletControladorUsuario">Administrar Usuarios</a>
+<a href="ListaDeEmpresas">Administrar Empresas</a>
+<a href="ListaDeEntidadesFederativas">Administrar Entidades Federativas</a>
 <div style="text-align: right"><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></div>
 </body>
 </html>

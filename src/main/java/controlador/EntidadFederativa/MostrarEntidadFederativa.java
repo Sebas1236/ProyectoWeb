@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador.Empresa;
+package controlador.EntidadFederativa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,15 +15,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.dao.EmpresaDAO;
-import modelo.dto.EmpresaDTO;
+import modelo.dao.EntidadFederativaDAO;
+import modelo.dto.EntidadFederativaDTO;
 
 /**
  *
  * @author Sebastián
  */
-@WebServlet(name = "AlmacenarActualizacionEmpresa", urlPatterns = {"/AlmacenarActualizacionEmpresa"})
-public class AlmacenarActualizacionEmpresa extends HttpServlet {
+@WebServlet(name = "MostrarEntidadFederativa", urlPatterns = {"/MostrarEntidadFederativa"})
+public class MostrarEntidadFederativa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,25 +42,23 @@ public class AlmacenarActualizacionEmpresa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AlmacenarActualizacionEmpresa</title>");            
+            out.println("<title>Servlet MostrarEntidadFederativa</title>");            
             out.println("</head>");
             out.println("<body>");
-            EmpresaDAO dao = new EmpresaDAO();
-            EmpresaDTO dto = new EmpresaDTO();
-            dto.getEntidad().setNombreEmp(request.getParameter("txtNombre"));
-            dto.getEntidad().setIdEmpresa(Integer.parseInt(request.getParameter("idEmpresa")));
-            System.out.println("Nombre usuario aau"+request.getParameter("txtNombre"));
-            System.out.println("Id: "+request.getParameter("idUsuario"));
-            try{      
-                dao.update(dto);      
-                System.out.println("Empresa actualizada!");
-                out.println("<a href='ListaDeEmpresas'>Lista de Empresas</a>");
-            }catch(SQLException ex)
-            {
-                Logger.getLogger(ListaDeEmpresas.class.getName()).log(Level.SEVERE,null,ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlmacenarActualizacionEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            EntidadFederativaDAO dao = new EntidadFederativaDAO();
+            EntidadFederativaDTO dto = new EntidadFederativaDTO();
+            dto.getEntidad().setIdEnt(Integer.parseInt(request.getParameter("idUsuario")));
+            try {
+                dao.read(dto);
+                out.println("<b>Los datos de la entidad federativa son </b><br/>");
+                out.println("<i>Clave : "+dto.getEntidad().getIdEnt()+"</i><br/>");
+                out.println("<i>Nombre : "+dto.getEntidad().getNombreEnt()+"</i><br/>");
+                out.println("<a href='ListaDeEntidadesFederativas'>Lista de entidades federativas</a>");
+                out.println("");
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(MostrarEntidadFederativa.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             out.println("</body>");
             out.println("</html>");
         }

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.UsuarioDTO;
+import modelo.entidades.Usuario;
 
 public class UsuarioDAO {
         
@@ -101,6 +102,32 @@ public class UsuarioDAO {
                 Conexion.close(rs);
         }
     }
+        public List<Usuario> listar() throws SQLException, ClassNotFoundException {
+        conexion = Conexion.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Usuario usuario = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            ps = conexion.prepareStatement(SQL_READ_ALL);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                int idUsu = rs.getInt("idUsu");
+                String nombreUsu = rs.getString("nombreUsu");
+                String correousu = rs.getString("correoUsu");
+                String role = rs.getString("role");
+                usuario = new Usuario(idUsu, nombreUsu, correousu,role);
+                usuarios.add(usuario);
+            }
+
+        } finally {
+                Conexion.close(ps);
+                Conexion.close(conexion);
+                Conexion.close(rs);
+        }
+        return usuarios;
+    }
     
     public Boolean login(UsuarioDTO dto) throws SQLException, ClassNotFoundException
     {
@@ -131,6 +158,7 @@ public class UsuarioDAO {
             dto.getEntidad().setIdUsu(rs.getInt("idUsu"));
             dto.getEntidad().setNombreUsu(rs.getString("nombreUsu"));
             dto.getEntidad().setCorreoUsu(rs.getString("correoUsu"));
+            dto.getEntidad().setRole(rs.getString("role"));
             //System.out.println("Correo: " + rs.getString("correoUsu"));
             resultado.add(dto);
         }

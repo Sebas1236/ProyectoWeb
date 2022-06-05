@@ -54,7 +54,8 @@ public class EliminarEmpresa extends HttpServlet {
                 //out.println(dto.toString());
                 dao.delete(dto);
                 out.println("Eliminado!");
-                out.println("<a href='ListaDeUsuarios'>Lista de Usuarios</a>");
+                response.sendRedirect("ListaDeEmpresas");
+                out.println("<a href='ListaDeEmpresas'>Lista de Empresas</a>");
             }catch(SQLException ex)
             {
                 Logger.getLogger(ListaDeEmpresas.class.getName()).log(Level.SEVERE,null,ex);

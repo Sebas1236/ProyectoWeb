@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlador.Empresa;
+package controlador.EntidadFederativa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,15 +15,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.dao.EmpresaDAO;
-import modelo.dto.EmpresaDTO;
+import modelo.dao.EntidadFederativaDAO;
+import modelo.dto.EntidadFederativaDTO;
 
 /**
  *
  * @author Sebastián
  */
-@WebServlet(name = "AlmacenarActualizacionEmpresa", urlPatterns = {"/AlmacenarActualizacionEmpresa"})
-public class AlmacenarActualizacionEmpresa extends HttpServlet {
+@WebServlet(name = "RegistrarEntidadFederativa", urlPatterns = {"/RegistrarEntidadFederativa"})
+public class RegistrarEntidadFederativa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,25 +42,25 @@ public class AlmacenarActualizacionEmpresa extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AlmacenarActualizacionEmpresa</title>");            
+                                   out.println("<!-- CSS only -->\n" +
+"<link href=\'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\' rel=\'stylesheet\' integrity=\'sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\' crossorigin=\'anonymous\'>");
+            out.println("<title>Servlet RegistrarEmpresa</title>");            
             out.println("</head>");
             out.println("<body>");
-            EmpresaDAO dao = new EmpresaDAO();
-            EmpresaDTO dto = new EmpresaDTO();
-            dto.getEntidad().setNombreEmp(request.getParameter("txtNombre"));
-            dto.getEntidad().setIdEmpresa(Integer.parseInt(request.getParameter("idEmpresa")));
-            System.out.println("Nombre usuario aau"+request.getParameter("txtNombre"));
-            System.out.println("Id: "+request.getParameter("idUsuario"));
-            try{      
-                dao.update(dto);      
-                System.out.println("Empresa actualizada!");
-                out.println("<a href='ListaDeEmpresas'>Lista de Empresas</a>");
-            }catch(SQLException ex)
-            {
-                Logger.getLogger(ListaDeEmpresas.class.getName()).log(Level.SEVERE,null,ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlmacenarActualizacionEmpresa.class.getName()).log(Level.SEVERE, null, ex);
+            EntidadFederativaDTO dto = new EntidadFederativaDTO();
+            dto.getEntidad().setNombreEnt(request.getParameter("txtNombreEnt"));
+            //Inserta la empresa
+            EntidadFederativaDAO dao = new EntidadFederativaDAO();
+                try {
+                    dao.create(dto);
+                } catch (SQLException ex) {
+                    System.out.println("Excepcion");
+                    Logger.getLogger(RegistrarEntidadFederativa.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RegistrarEntidadFederativa.class.getName()).log(Level.SEVERE, null, ex);
             }
+            out.println("Ok");
+            out.println("<h1>Servlet RegistrarEmpresa at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

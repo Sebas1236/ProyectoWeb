@@ -47,6 +47,7 @@ public class EmpresaDAO {
             ps.setString(2, dto.getEntidad().getLogoEmp());
             ps.setString(3, dto.getEntidad().getEsloganEmp());
             ps.setString(4, dto.getEntidad().getDescripcionEmp());
+            ps.setInt(5, dto.getEntidad().getIdEmpresa());
             ps.executeUpdate();
         } finally {
                 Conexion.close(ps);
