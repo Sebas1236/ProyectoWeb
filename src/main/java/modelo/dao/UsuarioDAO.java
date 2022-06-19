@@ -102,7 +102,7 @@ public class UsuarioDAO {
                 Conexion.close(rs);
         }
     }
-        public List<Usuario> listar() throws SQLException, ClassNotFoundException {
+    public List<Usuario> listar() throws SQLException, ClassNotFoundException {
         conexion = Conexion.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;

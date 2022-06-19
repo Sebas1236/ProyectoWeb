@@ -109,9 +109,9 @@ public class ServletControladorUsuario extends HttpServlet {
                     dao.create(dto);
                 } catch (SQLException ex) {
                     System.out.println("Excepcion");
-                    Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServletControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RegistrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         //Redirigimos hacia accion por default
@@ -129,11 +129,9 @@ public class ServletControladorUsuario extends HttpServlet {
             try{      
                 dao.update(dto);      
                 System.out.println("Usuario actualizado!");
-            }catch(SQLException ex)
+            }catch(SQLException | ClassNotFoundException ex)
             {
-                Logger.getLogger(ListaDeUsuarios.class.getName()).log(Level.SEVERE,null,ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AlmacenarActualizacionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletControladorUsuario.class.getName()).log(Level.SEVERE,null,ex);
             }
 
         //Redirigimos hacia accion por default
@@ -151,11 +149,9 @@ public class ServletControladorUsuario extends HttpServlet {
                 //out.println(dto.toString());
                 dao.delete(dto);
                 //response.sendRedirect("ListaDeUsuarios");
-            }catch(SQLException ex)
+            }catch(SQLException | ClassNotFoundException ex)
             {
-                Logger.getLogger(ListaDeUsuarios.class.getName()).log(Level.SEVERE,null,ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletControladorUsuario.class.getName()).log(Level.SEVERE,null,ex);
             }
         //Redirigimos hacia accion por default
         this.accionDefault(request, response);

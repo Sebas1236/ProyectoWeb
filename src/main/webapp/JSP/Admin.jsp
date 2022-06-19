@@ -15,9 +15,9 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 
 Welcome <%=request.getAttribute("userName") %>
 <a href="ServletControladorUsuario">Administrar Usuarios</a>
-<a href="ListaDeEmpresas">Administrar Empresas</a>
-<a href="ListaDeEntidadesFederativas">Administrar Entidades Federativas</a>
-<div style="text-align: right"><a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a></div>
+<a href="ServletControladorEmpresa">Administrar Empresas</a>
+<a href="ServletControladorEF">Administrar Entidades Federativas</a>
+<div style="text-align: right"><a href="<%=request.getContextPath()%>/LogoutServlet">Cerrar Sesión</a></div>
 </body>
 </html>
 <!--

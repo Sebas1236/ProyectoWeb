@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.EntidadFederativaDTO;
+import modelo.entidades.EntidadFederativa;
 
 public class EntidadFederativaDAO {
     private static final String SQL_INSERT = "insert into entidadfederativa(nombreEnt) values (?)";
@@ -94,6 +95,30 @@ public class EntidadFederativaDAO {
                 Conexion.close(conexion);
                 Conexion.close(rs);
         }
+    }
+        public List<EntidadFederativa> listar() throws SQLException, ClassNotFoundException {
+        conexion = Conexion.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        EntidadFederativa ef = null;
+        List<EntidadFederativa> efs = new ArrayList<>();
+        try {
+            ps = conexion.prepareStatement(SQL_READ_ALL);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                int idEnt = rs.getInt("idEnt");
+                String nombreEnt = rs.getString("nombreEnt");
+                ef = new EntidadFederativa(idEnt, nombreEnt);
+                efs.add(ef);
+            }
+
+        } finally {
+                Conexion.close(ps);
+                Conexion.close(conexion);
+                Conexion.close(rs);
+        }
+        return efs;
     }
 
     private List obtenerResultados(ResultSet rs) throws SQLException {

@@ -13,6 +13,12 @@ public class EntidadFederativa {
     private int idEnt;
     private String nombreEnt;
 
+    public EntidadFederativa(){}
+    public EntidadFederativa(int idEnt, String nombreEnt)
+    {
+        this.idEnt = idEnt;
+        this.nombreEnt = nombreEnt;
+    }
     public int getIdEnt() {
         return idEnt;
     }

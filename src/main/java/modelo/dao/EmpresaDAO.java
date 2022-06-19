@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.dto.EmpresaDTO;
+import modelo.entidades.Empresa;
 
 public class EmpresaDAO {
     
@@ -107,18 +108,50 @@ public class EmpresaDAO {
                 Conexion.close(rs);
         }
     }
+    public List<Empresa> listar() throws SQLException, ClassNotFoundException {
+        conexion = Conexion.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Empresa empresa = null;
+        List<Empresa> empresas = new ArrayList<>();
+        try {
+            ps = conexion.prepareStatement(SQL_READ_ALL);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                int idEmpresa = rs.getInt("idEmpresa");
+                String nombreEmp = rs.getString("nombreEmp");
+                String logoEmp = rs.getString("logoEmp");
+                String esloganEmp = rs.getString("esloganEmp");
+                String descripcionEmp = rs.getString("descripcionEmp");
+                int idusuarioEmp = rs.getInt("idusuarioEmp");
+                empresa = new Empresa(idEmpresa, nombreEmp, logoEmp, esloganEmp, descripcionEmp, idusuarioEmp);
+                empresas.add(empresa);
+            }
 
+        } finally {
+                Conexion.close(ps);
+                Conexion.close(conexion);
+                Conexion.close(rs);
+        }
+        return empresas;
+    }
     private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultado = new ArrayList();
         while (rs.next()) {
             EmpresaDTO dto = new EmpresaDTO();
-            dto.getEntidad().setIdEmpresa(rs.getInt("idEstado"));
-            dto.getEntidad().setNombreEmp(rs.getString("nombreEstado"));
+            dto.getEntidad().setIdEmpresa(rs.getInt("idEmpresa"));
+            dto.getEntidad().setNombreEmp(rs.getString("nombreEmp"));
+            dto.getEntidad().setLogoEmp(rs.getString("logoEmp"));
+            dto.getEntidad().setEsloganEmp(rs.getString("esloganEmp"));
+            dto.getEntidad().setDescripcionEmp(rs.getString("descripcionEmp"));
+            dto.getEntidad().setIdUsuarioEmp(rs.getInt("idusuarioEmp"));
             resultado.add(dto);
         }
         return resultado;
     }
-
+}
+/*
     public static void main(String[] args) throws ClassNotFoundException {
         EmpresaDTO dto = new EmpresaDTO();
         dto.getEntidad().setNombreEmp("Coca Cola");
@@ -139,4 +172,5 @@ public class EmpresaDAO {
         }
     }
 
-}
+}*/
+

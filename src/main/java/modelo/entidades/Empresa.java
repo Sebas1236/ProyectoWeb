@@ -8,6 +8,16 @@ public class Empresa {
     private int idUsuarioEmp;
 
     public Empresa(){}
+
+    public Empresa(int idEmpresa, String nombreEmp, String logoEmp, String esloganEmp, String descripcionEmp, int idUsuarioEmp) {
+        this.idEmpresa = idEmpresa;
+        this.nombreEmp = nombreEmp;
+        this.logoEmp = logoEmp;
+        this.esloganEmp = esloganEmp;
+        this.descripcionEmp = descripcionEmp;
+        this.idUsuarioEmp = idUsuarioEmp;
+    }
+    
     public int getIdEmpresa() {
         return idEmpresa;
     }
