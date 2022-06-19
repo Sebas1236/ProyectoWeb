@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="passwordUsu">Contraseña</label>
-                        <input type="number" class="form-control" name="passwordUsu" required>
+                        <input type="password" class="form-control" name="passwordUsu" required>
                     </div>
                     <div class="form-group">
                         <label for="role">Rol</label>

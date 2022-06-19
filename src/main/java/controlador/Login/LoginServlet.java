@@ -96,8 +96,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
   {
    System.out.println("Admin's Home");
 
-   HttpSession session = request.getSession(); //Creating a session
-   session.setAttribute("Admin", userName); //setting session attribute
+   HttpSession session = request.getSession(); //Creando una sesión
+   session.setAttribute("Admin", userName); //Colocando el atributo de la sesión
    request.setAttribute("userName", userName);
 
    request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
